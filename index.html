@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ JAVITOH - Música Latina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset y estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary-color: #FF4D8F;
+            --secondary-color: #6C5CE7;
+            --dark-bg: #0F0F1E;
+            --text-light: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(15, 15, 30, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-horizontal-v4 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 100%;
+            background: transparent !important;
+        }
+
+        .liquid-container {
+            display: flex;
+            gap: 6px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .liquid-bar {
+            width: 8px;
+            background: linear-gradient(to bottom, 
+                rgba(108, 92, 231, 0.8), 
+                rgba(255, 77, 143, 0.8));
+            border-radius: 4px;
+            animation: liquid-flow 2s infinite;
+        }
+
+        .liquid-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, 
+                #6C5CE7, 
+                #FF4D8F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            white-space: nowrap;
+            min-width: max-content;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            padding: 120px 5% 0;
+            background: linear-gradient(rgba(15, 15, 30, 0.7), rgba(15, 15, 30, 0.9)),
+                        url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819') center/cover;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 30px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Sección Eventos */
+        .events {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Sección Música */
+        .music-player {
+            padding: 3rem 5%;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .spotify-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        /* Sección WhatsApp */
+        .whatsapp-section {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .whatsapp-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 2px solid #25D366;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .whatsapp-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(37, 211, 102, 0.1), 
+                transparent);
+            transform: rotate(45deg);
+            animation: whatsapp-glow 3s linear infinite;
+            pointer-events: none;
+        }
+
+        .whatsapp-text {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Footer Actualizado */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes liquid-flow {
+            0% { clip-path: inset(30% 0 0 0); }
+            50% { clip-path: inset(0 0 30% 0); }
+            100% { clip-path: inset(30% 0 0 0); }
+        }
+
+        @keyframes whatsapp-glow {
+            0% { transform: rotate(45deg) translateX(-30%); }
+            100% { transform: rotate(45deg) translateX(30%); }
+        }
+
+        .animate-fadein {
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 100px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .spotify-container {
+                margin: 0 20px;
+            }
+
+            iframe {
+                height: 350px;
+            }
+
+            .liquid-text {
+                font-size: clamp(1.2rem, 6vw, 1.8rem);
+            }
+
+            .whatsapp-container {
+                margin: 0 20px;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            iframe {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-horizontal-v4">
+            <div class="liquid-container">
+                <div class="liquid-bar"></div>
+                <div class="liquid-bar"></div>
+                <div class="liquid-bar"></div>
+            </div>
+            <div class="liquid-text">DJ JAVITOH</div>
+        </div>
+        <nav class="nav-links">
+            <a href="#events">Eventos</a>
+            <a href="#music">Música</a>
+            <a href="#contact">Contacto</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content animate-fadein">
+            <h1>Reggaeton Dembow Latino Cumbia RKT Cuarteto Hits</h1>
+            <p>KAPITAL DISCOTECA - KLUB ANDORRA - APRESS SKI SURF - CISCO - EVENTOS PRIVADOS</p>
+            <button class="cta-btn">Próximos Eventos</button>
+        </div>
+    </section>
+
+    <section id="events" class="events">
+        <h2 class="section-title">Próximos Eventos</h2>
+        <div class="event-grid">
+            <div class="event-card">
+                <h3>Festival Nocturno</h3>
+                <p>15 Marzo 2024</p>
+                <p>Ibiza, España</p>
+            </div>
+            <div class="event-card">
+                <h3>Fiesta Playa</h3>
+                <p>22 Abril 2024</p>
+                <p>Marbella, España</p>
+            </div>
+            <div class="event-card">
+                <h3>Club Night</h3>
+                <p>5 Mayo 2024</p>
+                <p>Barcelona, España</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="music" class="music-player">
+        <h2 class="section-title">Mi Playlist</h2>
+        <div class="spotify-container">
+            <iframe style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/playlist/71xjVDH2ecwkPm3wrJLTn3?utm_source=generator&theme=0&show_count=0&hide_cover=1" 
+                    width="100%" 
+                    height="450" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <section id="contact" class="whatsapp-section">
+        <h2 class="section-title">Contacto Directo</h2>
+        <div class="whatsapp-container animate-fadein">
+            <p class="whatsapp-text">¡Reserva tu evento ahora mismo!<br>Contáctame directamente por WhatsApp</p>
+            <a href="https://wa.me/376362767?text=Hola%20DJ%20JAVITOH,%20quisiera%20reservarte%20para%20un%20evento" 
+               class="cta-btn whatsapp-btn" 
+               target="_blank"
+               rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> Enviar Mensaje
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/dj.javitoh?igsh=MWRrbGk2MWk1eXdrNQ==" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://open.spotify.com/playlist/71xjVDH2ecwkPm3wrJLTn3?si=cTKvwYIbTf-WLqH6dyHuaA&pi=xOkD7rUfT96ZP" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                <i class="fab fa-spotify"></i>
+            </a>
+        </div>
+        <p>&copy; 2024 DJ JAVITOH - Contacto: +376 362767</p>
+    </footer>
+
+    <script>
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animación al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadein');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.event-card, .spotify-container, .whatsapp-container').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
